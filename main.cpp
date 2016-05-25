@@ -5,7 +5,7 @@
 #include <math.h>
 #define MAXBIEN 10
 #define MAXCT 20
-#define PI 3.14
+#define PI 3.14159265
 using namespace std;
 
 typedef char BIEN[10];
@@ -36,11 +36,12 @@ void giaiTamGiac();
 
 int main()
 {
-    docFile("E:\\AI\\Semantic\\data.txt");
+    docFile("data.txt");
     hienThiBienVaCongThuc();
     khoiTaoGiaTriBien();
     cout<<"\nGiai tam giac\n";
     giaiTamGiac();
+
     return 0;
 }
 
@@ -215,14 +216,14 @@ void nhapVaKichHoatCacBienBanDau(){
     int iBien,soBienBanDau;
     printf("Nhap so bien ban dau de xac dinh tam giac: ");
     scanf("%d",&soBienBanDau);
-    printf("\nNhap chi so cac bien:\n");
+    printf("\nNhap chi so cac bien\n");
     printf("0:anpha\t1:beta\t2:gama\t3:a\t4:b\t5:c\t6:hc\t7:p\t8:s\n");
     for(int i=0;i<soBienBanDau;i++){
-        printf("Chi so cua bien thu %d (0,1,2,3,4,5,6,7,8):",i+1);
+        printf("Chi so cua bien thu %d: ",i+1);
         scanf("%d",&iBien);
         kichHoatBien(iBien);
-        printf("Nhap gia tri bien:");
-        scanf("%d",&giaTriBien[iBien]);
+        printf("\t%s: ",bien[iBien]);
+        scanf("%lf",&giaTriBien[iBien]);
     }
 }
 
@@ -247,6 +248,7 @@ void giaiTamGiac(){
 
     int iBienChuaKichHoat;
     int jCongThucSanSangKichHoat = timCongThucSanSangKichHoat();
+    printf("\n==Cac cong thuc duoc kich hoat==\n");
     while(jCongThucSanSangKichHoat>-1){
         iBienChuaKichHoat = timBienChuaKichHoat(jCongThucSanSangKichHoat);
         switch(jCongThucSanSangKichHoat){
@@ -258,8 +260,9 @@ void giaiTamGiac(){
             case 5:tinhVaLuuGiaTriBienTheoCTR5(iBienChuaKichHoat);break;
         }
         kichHoatBien(iBienChuaKichHoat);
-        printf("Bien %d : %d\n",iBienChuaKichHoat,giaTriBien[iBienChuaKichHoat]);
+        printf("   %s => ",congthuc[jCongThucSanSangKichHoat]);
+        printf("bien %s : %g\n",bien[iBienChuaKichHoat],giaTriBien[iBienChuaKichHoat]);
         jCongThucSanSangKichHoat = timCongThucSanSangKichHoat();
     }
-    printf("%s -> %s = %d",congthuc[jCongThucSanSangKichHoat],bien[iBienCanTinh],giaTriBien[iBienCanTinh]);
+    printf("ket qua bien %s = %g",bien[iBienCanTinh],giaTriBien[iBienCanTinh]);
 }
