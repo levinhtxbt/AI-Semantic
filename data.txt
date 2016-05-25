@@ -1,0 +1,26 @@
+9 6
+anpha
+beta
+gama
+a
+b
+c
+hc
+p
+s
+anpha+beta+gama=PI
+a/sin(anpha)=b/sin(beta)
+b/sin(beta)=c/sin(gama)
+a+b+c-p=0
+hc=b*sin(anpha)
+s=hc*c/2
+-1	-1	0	0	-1	0
+-1 	-1 	-1 	0	0	0
+-1	0	-1 	0	0	0
+0	-1	0	-1	0	0
+0	-1	-1	-1	-1	0
+0	0	-1	-1	0	-1
+0	0	0	0	-1	-1
+0	0	0	-1	0	0
+0	0	0	0	0	-1
+
