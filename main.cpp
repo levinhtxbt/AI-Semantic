@@ -67,6 +67,7 @@ void docFile(char *fn){
             fscanf(f,"%d\t",&quanHe[i][j]);
         }
     }
+    fclose(f);
 }
 
 void khoiTaoGiaTriBien(){
@@ -97,6 +98,8 @@ void hienThiBienVaCongThuc(){
     }
 }
 
+///Kích hoạt biến là tìm 1 dòng of i biến nếu có -1 thì bật lên 1
+///1 là đã kích hoạt, -1 là biến có liên hệ và chưa kích hoạt
 void kichHoatBien(int iBien){
     for(int j=0;j<soCongThuc;j++){
         if(quanHe[iBien][j]==-1)
@@ -104,6 +107,8 @@ void kichHoatBien(int iBien){
     }
 }
 
+///Duyệt qua 1 cột kCông thức qua các biến nếu =-1 thì kq++;
+///return kết quả
 int demSoBienChuaKichHoat(int kCongThuc){
     int kq = 0;
     for(int i=0;i<soBien;i++){
@@ -113,6 +118,8 @@ int demSoBienChuaKichHoat(int kCongThuc){
     return kq;
 }
 
+
+///Duyệt qua các công thức và tìm số công thức nào có số biến chưa kích hoạt bằng 1 thì sẳn sàng kích hoạt
 int timCongThucSanSangKichHoat(){
     for(int j=0;j<soCongThuc;j++){
         if(demSoBienChuaKichHoat(j)==1)
@@ -121,6 +128,8 @@ int timCongThucSanSangKichHoat(){
     return -1;
 }
 
+///Tìm 1 cột kCongThuc nếu có 1 biến chua kích hoạt thì return ra giá trị biến chưa kích hoạt
+///Giá trị đó tìm thấy đầu tiên
 int timBienChuaKichHoat(int kCongThuc){
     for(int i=0;i<soBien;i++){
         if(quanHe[i][kCongThuc]==-1)
@@ -192,14 +201,13 @@ void tinhVaLuuGiaTriBienTheoCTR4(int iBien){
 
 void tinhVaLuuGiaTriBienTheoCTR5(int iBien){
     switch(iBien){
-        case 8:giaTriBien[8] = giaTriBien[7]*giaTriBien[5]/giaTriBien[2];
+        case 8:giaTriBien[8] = giaTriBien[6]*giaTriBien[5]/2;
             break;
-        case 7:giaTriBien[7] = giaTriBien[8]*giaTriBien[2]/giaTriBien[5];
+        case 6:giaTriBien[6] = giaTriBien[8]*2/giaTriBien[5];
             break;
-        case 5:giaTriBien[5] = giaTriBien[8]/giaTriBien[7]*giaTriBien[2];
+        case 5:giaTriBien[5] = 2*giaTriBien[8]/giaTriBien[6];
             break;
-        case 2:giaTriBien[2] = giaTriBien[7]*giaTriBien[5]/giaTriBien[8];
-            break;
+
     }
 }
 
@@ -223,10 +231,20 @@ void nhapChiSoBienCanTinh(int &iBienCanTinh){
     scanf("%d",&iBienCanTinh);
 }
 
+///B1: Nhập và kích hoạt các đỉnh ban đầu
+///B2:Nhâp biến cần tính
+///B3:Tim công thức sẵn sàng kích hoạt
+///Khi công thức sẳn sàng kích hoạt tồn tại (!=-1) thì
+///B4:Tìm biến chưa kích hoạt
+///b5: kích hoạt biến đó
+///B6:In biến và giá trị biến và tìm công thức chưa sẳn sàng kích hoạt lặp lại đến khi ko tìm thấy công thức sẳn sàng kích hoạt
+///B6:In ra công thức cuối, biến và giá trị
+
 void giaiTamGiac(){
     nhapVaKichHoatCacBienBanDau();
     int iBienCanTinh;
     nhapChiSoBienCanTinh(iBienCanTinh);
+
     int iBienChuaKichHoat;
     int jCongThucSanSangKichHoat = timCongThucSanSangKichHoat();
     while(jCongThucSanSangKichHoat>-1){
